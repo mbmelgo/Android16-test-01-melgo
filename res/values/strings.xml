@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">OneVault-test</string>
+    <string name="btn_income">Add Income</string>
+    <string name="btn_expense">Add Expense</string>
+    <string name="text_amount">Amount:</string>
+    <string name="text_paymethod">Payment Method</string>
+    <string name="button_save">SAVE</string>
+    <string name="KEY_DATE"/>
+    <string name="pick_date">PICK DATE</string>
+    <string name="ref_chck">Reference/Check:</string>
+    <string name="description">Description:</string>
+    <string name="tax">Tax:</string>
+    <string name="quantity">Quantity:</string>
+    <string name="payee">Payee:</string>
+    <string name="tags">Tags:</string>
+    <string name="text_income">Add Income</string>
+    <string name="text_expense">Add Expense</string>
+    <string name="text_delete">Delete</string>
+    <string name="text_save">Save</string>
+    <string name="text_edit">Edit</string>
+    <string name="text_date">Payment Date</string>
+    <string name="text_ref">Check/Ref No.</string>
+    <string name="text_description">Description</string>
+    <string name="text_quantity">Quantity</string>
+    <string name="text_tax">Tax</string>
+    <string name="text_payer">Payer</string>
+    <string name="text_payee">Payee</string>
+    <string name="default_field_num">0</string>
+    <string name="delete">Delete</string>
+</resources>
