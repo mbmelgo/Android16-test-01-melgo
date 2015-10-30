@@ -14,6 +14,7 @@ import java.util.ArrayList;
 public class mainActivity extends Activity {
     DatabaseHandler db;
     ArrayList<Transaction> expense_transaction;
+    ArrayList<Transaction> income_transaction;
     /**
      * Called when the activity is first created.
      */
@@ -24,11 +25,11 @@ public class mainActivity extends Activity {
 
         db = new DatabaseHandler(this);
         ListView view = (ListView) findViewById(R.id.listView_transac_expense);
-        //ListView view2 = (ListView) findViewById(R.id.listView_transac_income);
+        ListView view2 = (ListView) findViewById(R.id.listView_transac_income);
         createListenerExpense(view);
-        //createListenerIncome(view2);
+        createListenerIncome(view2);
         ArrayList<Transaction> expense = null;
-        //ArrayList<Transaction> income = null;
+        ArrayList<Transaction> income = null;
 
         //IF INCOME SELECTED
 
@@ -53,48 +54,54 @@ public class mainActivity extends Activity {
             }
         }
         else{
-            exp_trans.add("No Transactions");
+            exp_trans.add("No Expense Transaction  at the moment");
 
         }
         ArrayAdapter<String> expenseArrayAdapter = new ArrayAdapter(this, android.R.layout.simple_list_item_1, exp_trans);
         view.setAdapter(expenseArrayAdapter);
 
-//        income = db.getAllIncomeTransactions();
-//
-//        ArrayList<String> income_transaction = new ArrayList<>();
-//
-//        if(!income.isEmpty()) {
-//            for (Transaction t : income) {
-//                income_transaction.add(t.getKEY_DATE() + "\nAmount:" + t.getKEY_AMOUNT() +
-//                        "\nDescription: " + t.getKEY_DESCRIPTION());
-//            }
-//        }
-//        else{
-//            income_transaction.add("No Income transaction at the moment");
-//        }
-//
-//        ArrayAdapter<String> incomeArrayAdapter = new ArrayAdapter(this, android.R.layout.simple_list_item_2, expense_transaction);
-//        view2.setAdapter(incomeArrayAdapter);
+        try {
+            income = db.getAllIncomeTransactions();
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+
+        income_transaction = new ArrayList<>();
+        ArrayList<String> inc_transaction = new ArrayList<>();
+
+        if(!income.isEmpty()) {
+            for (Transaction t : income) {
+                income_transaction.add(t);
+                inc_transaction.add(t.getKEY_DATE() + "\nAmount:" + t.getKEY_AMOUNT() +
+                        "\nDescription: " + t.getKEY_DESCRIPTION());
+            }
+        }
+        else{
+            inc_transaction.add("No Income transaction at the moment");
+        }
+
+        ArrayAdapter<String> incomeArrayAdapter = new ArrayAdapter(this, android.R.layout.simple_list_item_1, inc_transaction);
+        view2.setAdapter(incomeArrayAdapter);
 
     }
 
-//    private void createListenerIncome(ListView Listview) {
-//        Listview.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-//            @Override
-//            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-//                String selectedItem = (String) (Listview.getItemAtPosition(position));
-//                selectedItem = selectedItem.replaceAll("\\s", "");
-//                String whereClause = selectedItem.substring(0, selectedItem.indexOf('A'));
-//                //change this to context later since it has only one data to pass..
-//                Bundle bundle = new Bundle();
-//                bundle.putString("whereClause", whereClause);
-//
-//                Intent intent = new Intent(mainActivity.this, UDIncome.class);
-//                intent.putExtras(bundle);
-//                startActivity(intent);
-//            }
-//        });
-//    }
+    private void createListenerIncome(ListView Listview) {
+        Listview.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+
+                //change this to context later since it has only one data to pass..
+                Bundle bundle = new Bundle();
+
+                Transaction t = null;
+                t = income_transaction.get(position);
+                bundle.putInt("incomeID",t.getKEY_ID());
+                Intent intent = new Intent(mainActivity.this, UDIncome.class);
+                intent.putExtras(bundle);
+                startActivity(intent);
+            }
+        });
+    }
 
     private void createListenerExpense(ListView Listview) {
         Listview.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -123,8 +130,8 @@ public class mainActivity extends Activity {
         startActivity(intent);
     }
 
-//    public void AddIncome(View view){
-//        Intent intent = new Intent(this, AddIncome.class);
-//        startActivity(intent);
-//    }
+    public void AddIncomes(View view){
+        Intent intent = new Intent(this, AddIncome.class);
+        startActivity(intent);
+    }
 }

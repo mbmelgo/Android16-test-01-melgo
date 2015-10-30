@@ -15,7 +15,7 @@ import java.util.Calendar;
 /**
  * Created by Radley Rosal on 26/10/2015.
  */
-public class UDExpense extends Activity {
+public class UDIncome extends Activity {
     EditText amount;
     EditText refChck;
     EditText description;
@@ -52,7 +52,7 @@ public class UDExpense extends Activity {
         Intent intent = getIntent();
         Bundle bundle = intent.getExtras();
         db = new DatabaseHandler(this);
-        int id = bundle.getInt("expenseID");
+        int id = bundle.getInt("incomeID");
         initializeFields();
         fillFromDB(id);
     }
@@ -95,7 +95,7 @@ public class UDExpense extends Activity {
     }
     private void fillFromDB(int id) {
         try {
-            transaction = db.getExpenseTransaction(id);
+            transaction = db.getIncomeTransaction(id);
         } catch (ParseException e) {
             e.printStackTrace();
         }
@@ -140,7 +140,7 @@ public class UDExpense extends Activity {
         Date date = new Date((year-1900),month,day);
         transaction.setKEY_AMOUNT(amount);
         transaction.setKEY_PAYMETHOD(method);
-        transaction.setKEY_DATE(new java.sql.Date(date.getTime()));
+        transaction.setKEY_DATE(new Date(date.getTime()));
         transaction.setKEY_REF_CHECK(refOrCheck);
         transaction.setKEY_DESCRIPTION(description);
         transaction.setKEY_TAX(tax);
@@ -148,7 +148,7 @@ public class UDExpense extends Activity {
         transaction.setKEY_PAYER(payee);
         transaction.setKEY_TAGS(tags);
 
-        db.updateExpenseTransaction(transaction);
+        db.updateIncomeTransaction(transaction);
         Toast.makeText(getApplicationContext(), "Transaction Updated!", Toast.LENGTH_SHORT).show();
 
         Intent intent = new Intent(this, mainActivity.class);
@@ -156,7 +156,7 @@ public class UDExpense extends Activity {
     }
 
     public void ReturnMainDelete(View view){
-        db.deleteExpenseTransaction(transaction.getKEY_ID());
+        db.deleteIncomeTransaction(transaction.getKEY_ID());
         Toast.makeText(getApplicationContext(), "Transaction Deleted!", Toast.LENGTH_SHORT).show();
 
         Intent intent = new Intent(this, mainActivity.class);

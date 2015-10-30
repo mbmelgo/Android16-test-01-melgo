@@ -14,7 +14,7 @@ import java.util.Calendar;
 /**
  * Created by radleyrosal on 10/22/2015.
  */
-public class AddExpense extends Activity {
+public class AddIncome extends Activity {
     private DatePicker datePicker;
     private Calendar calendar;
     private int year, month, day;
@@ -101,9 +101,9 @@ public class AddExpense extends Activity {
 
         Date date = new Date((year-1900),month,day);
         Transaction transaction = new Transaction(amount, method,
-                new java.sql.Date(date.getTime()),refOrCheck,description,
+                new Date(date.getTime()),refOrCheck,description,
                 tax,quantity,payee,tags);
-        db.addExpenseTransaction(transaction);
+        db.addIncomeTransaction(transaction);
         Toast.makeText(getApplicationContext(), "Transaction Added!", Toast.LENGTH_SHORT).show();
 
         Intent intent = new Intent(this, mainActivity.class);
