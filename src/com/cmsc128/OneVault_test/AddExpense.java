@@ -71,7 +71,7 @@ public class AddExpense extends Activity {
             // arg2 = month
             // arg3 = day
             year = arg1;
-            month = arg2 +1;
+            month = arg2;
             day = arg3;
         }
     };

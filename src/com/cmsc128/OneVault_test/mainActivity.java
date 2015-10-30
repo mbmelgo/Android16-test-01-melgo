@@ -106,9 +106,6 @@ public class mainActivity extends Activity {
 
                 Transaction t = null;
                 t = expense_transaction.get(position);
-                System.out.println("--------------------------");
-                System.out.println(t.getKEY_ID());
-                System.out.println("--------------------------");
                 bundle.putInt("expenseID",t.getKEY_ID());
                 Intent intent = new Intent(mainActivity.this, UDExpense.class);
                 intent.putExtras(bundle);
